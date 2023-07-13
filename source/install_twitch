@@ -1,0 +1,14 @@
+#!/bin/bash
+
+mkdir -p $HOME/tmp
+declare tmp=$HOME/tmp
+declare bin=$HOME/.local/bin
+
+cd $tmp
+declare latest=$(curl -sSL https://api.github.com/repos/twitchdev/twitch-cli/releases/latest | jq -r .name)
+curl -sSL "https://github.com/twitchdev/twitch-cli/releases/download/${latest}/twitch-cli_${latest#v}_Linux_x86_64.tar.gz" -o tarbomb.tgz
+
+tar xvf tarbomb.tgz twitch
+
+mkdir -p "$bin"
+mv twitch "$bin"
